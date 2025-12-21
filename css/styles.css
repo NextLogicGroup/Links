@@ -234,9 +234,28 @@ nav a:hover {
 
 /* Hero */
 .hero {
-  background: var(--primary-gradient); 
+  background: var(--primary-gradient);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
+  color: white; /* ensures all text in hero is white */
+}
+
+.hero h1,
+.hero p,
+.hero .btn {
+  color: white;
+}
+
+.hero .btn.secondary {
+  color: var(--accent); /* keeps the secondary button text blue */
+}
+
+.hero .stats-box strong {
+  color: #ffd700; /* or white – keeps the numbers visible */
+}
+
+.hero .stats-box p {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .hero::before {
@@ -245,22 +264,9 @@ nav a:hover {
 }
 
 .hero .container {
-  background: var(--primary-gradient);
+  background: transparent; /* remove the old gradient override */
 }
 
-.hero h1 {
-  color: white;
-  font-size: 3.5rem;
-  font-weight: 800;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  max-width: 20ch;
-}
-
-.hero p {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 1.25rem;
-  max-width: 65ch;
-}
 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
