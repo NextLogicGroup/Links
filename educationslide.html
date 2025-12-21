@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextLogicAI Education - Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+
+        :root {
+            --fixed-header-height: 250px;
+            --fixed-footer-height: 90px;
+        }
+
+        .deck {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; 
+        }
+
+        .logo {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            bottom: 2rem;
+            transform: translateX(-50%);
+            width: 275px;
+            z-index: 1000;
+            background: rgba(7, 0, 0, 0.226);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-wrapper {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+            background: rgba(0,0,0,0.8);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .controls button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .controls button:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+        
+        .slide {
+            position: absolute;
+            inset: 0;
+
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            padding-top: var(--fixed-header-height);
+            padding-bottom: var(--fixed-footer-height);
+            margin: 0 auto;
+        }
+        
+        .slide-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .slide-2 { background: #1a1a2e; }
+        .slide-3 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .slide-4 { background: #16213e; }
+        .slide-5 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: #1a1a2e; }
+        .slide-6 { background: #0f3460; }
+        .slide-7 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #1a1a2e; }
+        .slide-8 { background: #1a1a2e; }
+        .slide-9 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #1a1a2e; }
+        .slide-10 { background: #16213e; }
+        .slide-11 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .slide-12 { background: #0f3460; }
+        .slide-13 { background: #1a1a2e; }
+        .slide-14 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .slide-15 { background: #16213e; }
+        .slide-16 { background: linear-gradient(135deg, #ec647f 0%, #f5576c 100%); }
+        .slide-17 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .slide-5 .card, .slide-7 .card, .slide-9 .card {
+            background: rgba(0,0,0,0.05);
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        
+        .number-badge {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffd700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffd700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.125rem;
+        }
+        
+        li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .problem-box {
+            background: rgba(255,0,0,0.1);
+            border: 2px solid rgba(255,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .timeline-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 1rem;
+            opacity: 0.5;
+        }
+        
+        .matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+            height: 400px;
+        }
+        
+        .matrix-quadrant {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .matrix-quadrant.highlight {
+            background: rgba(255,215,0,0.2);
+            border: 3px solid #ffd700;
+        }
+        
+        .quote-box {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid #ffd700;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .logo { width: 80px; top: 1rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            .grid-2, .grid-3, .grid-4, .timeline { grid-template-columns: 1fr; }
+            .controls { padding: 0.5rem 1rem; bottom: 1rem; }
+            .slide { padding: 6rem 1.5rem 1.5rem 1.5rem; }
+            .matrix { grid-template-columns: 1fr; height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <img src="https://nextlogicai.com/img/logo1.png" alt="NextLogic Logo" class="logo">
+    
+    <div class="controls">
+        <button onclick="prevSlide()">← Previous</button>
+        <span id="slideCounter" style="color: white; padding: 0.75rem;">1 / 16</span>
+        <button onclick="nextSlide()">Next →</button>
+    </div>
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide slide-1 active">
+        <div class="slide-content" style="text-align: center;">
+            <h1>NextLogicAI Education</h1>
+            <p class="subtitle">The AI Safety Framework 165,000+ North American Schools Need</p>
+            <h3 style="margin-top: 2rem;">Teaching Responsible AI Use Through Limitation-Based Learning</h3>
+            <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: 600;">Not Just Another AI Tool — A Complete Teaching Framework</p>
+            <p style="margin-top: 2rem; font-size: 1.125rem;">Sarah, Founder & CEO<br>Part of the NextLogic Family of Businesses<br>Starting in Canada, Expanding Across North America</p>
+        </div>
+        <div class="slide-number">1 / 16</div>
+    </div>
+
+    <!-- SLIDE 2: THE MANDATORY COURSE -->
+    <div class="slide slide-2">
+        <div class="slide-content">
+            <h2>Education Before Access: The Mandatory Course</h2>
+            <p class="subtitle">Every student must pass before using any AI tools</p>
+            
+            <div class="grid-2" style="margin-bottom: 2rem;">
+                <div class="card">
+                    <h3>📚 Course Content (45-60 minutes)</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>What AI is and how it works</li>
+                        <li>AI limitations and failure modes</li>
+                        <li>Academic integrity and plagiarism</li>
+                        <li>When to use AI vs when not to</li>
+                        <li>Critical evaluation of AI outputs</li>
+                        <li>Ethical considerations and bias</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>✓ Assessment & Certification</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Interactive scenarios and quizzes</li>
+                        <li>Must score 80%+ to pass</li>
+                        <li>Certificate of completion issued</li>
+                        <li>Can retake if needed</li>
+                        <li>Teachers notified of completion</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card" style="background: rgba(255,215,0,0.15); border-color: #ffd700;">
+                <h3 style="text-align: center;">🔒 The Gate: No Course Completion = No Tool Access</h3>
+                <p style="text-align: center; margin-top: 1rem; font-size: 1.2rem;">
+                    Students physically cannot access any AI tools until they pass the course. This ensures 100% of users understand responsible AI use before their first interaction.
+                </p>
+            </div>
+            
+            <div class="grid-3" style="margin-top: 2rem;">
+                <div class="card">
+                    <h3>Why This Works</h3>
+                    <p style="font-size: 1rem;">Proactive education prevents misuse before it happens, unlike reactive detection tools</p>
+                </div>
+                <div class="card">
+                    <h3>Teacher Benefits</h3>
+                    <p style="font-size: 1rem;">Shared vocabulary and expectations—every student has the same foundation</p>
+                </div>
+                <div class="card">
+                    <h3>Student Buy-In</h3>
+                    <p style="font-size: 1rem;">Earning access creates value and understanding, not resentment</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">2 / 17</div>
+    </div>
+
+    <!-- SLIDE 3: PROBLEM - THE STORY -->
+    <div class="slide slide-3">
+        <div class="slide-content">
+            <h3>Meet Mrs. Smith, 7th Grade English Teacher</h3>
+            <p>(Name Changed For Anonymity)</p>
+            <div class="quote-box">
+                <p style="font-size: 1.3rem;">"Last month, I caught 12 students using ChatGPT to write their essays. When I brought it up with administration, they said 'just ban it.' But my students are already using it at home. I can't ban what I can't control."</p>
+                <p style="text-align: right; margin-top: 1rem; font-size: 1rem;">— Mrs. Smith</p>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Schools Face an Impossible Choice</h3>
+            <div class="grid-3">
+                <div class="problem-box">
+                    <h3>1. PROHIBITION</h3>
+                    <p style="margin-top: 1rem;">Ban AI Entirely</p>
+                    <p style="font-size: 1rem; margin-top: 1rem;">43% of teens use ChatGPT anyway—creates adversarial environment</p>
+                </div>
+                
+                <div class="problem-box">
+                    <h3>2. CHAOS</h3>
+                    <p style="margin-top: 1rem;">Allow Unrestricted Use</p>
+                    <p style="font-size: 1rem; margin-top: 1rem;">Risks academic integrity, weakens critical thinking</p>
+                </div>
+                
+                <div class="problem-box">
+                    <h3>3. CONFUSION</h3>
+                    <p style="margin-top: 1rem;">Vague Guidelines</p>
+                    <p style="font-size: 1rem; margin-top: 1rem;">48% of districts lack clear policies</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 2rem; text-align: center; font-size: 1.5rem; font-weight: 600;">There's no viable path forward... until now</p>
+        </div>
+        <div class="slide-number">3 / 17</div>
+    </div>
+
+    <!-- SLIDE 4: SOLUTION OVERVIEW -->
+    <div class="slide slide-4">
+        <div class="slide-content">
+            <h2>Our Solution: A Teaching Framework, Not Just Tools</h2>
+            <p class="subtitle">4 Types of Limitation That Build Responsible AI Users</p>
+            
+            <div class="grid-4">
+                <div class="card">
+                    <h3>1. Scope Limitation</h3>
+                    <p style="font-weight: 600; color: #ffd700;">Tools that do one thing well</p>
+                    <p style="margin-top: 1rem;">Email writer ≠ Essay writer</p>
+                    <p style="margin-top: 1rem; font-style: italic;">LESSON: Appropriate tool selection</p>
+                </div>
+                
+                <div class="card">
+                    <h3>2. Time Limitation</h3>
+                    <p style="font-weight: 600; color: #ffd700;">AI for drafts, humans for finals</p>
+                    <p style="margin-top: 1rem;">AI creates outline → Student writes</p>
+                    <p style="margin-top: 1rem; font-style: italic;">LESSON: Human completion matters</p>
+                </div>
+                
+                <div class="card">
+                    <h3>3. Decision Limitation</h3>
+                    <p style="font-weight: 600; color: #ffd700;">AI suggests, humans decide</p>
+                    <p style="margin-top: 1rem;">AI offers 3 options → Student chooses</p>
+                    <p style="margin-top: 1rem; font-style: italic;">LESSON: Critical evaluation</p>
+                </div>
+                
+                <div class="card">
+                    <h3>4. Context Limitation</h3>
+                    <p style="font-weight: 600; color: #ffd700;">AI handles process, humans judge</p>
+                    <p style="margin-top: 1rem;">AI formats → Human assesses quality</p>
+                    <p style="margin-top: 1rem; font-style: italic;">LESSON: Quality judgment</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 2rem; text-align: center; font-size: 1.25rem; font-weight: 600;">"Every AI interaction becomes a teachable moment"</p>
+        </div>
+        <div class="slide-number">4 / 17</div>
+    </div>
+
+    <!-- SLIDE 5: HOW IT WORKS -->
+    <div class="slide slide-5">
+        <div class="slide-content">
+            <h2>How Students Access the Platform</h2>
+            <p class="subtitle">Education-first approach: Learn before you use</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="number-badge">01</span>
+                    <h3>Create Code</h3>
+                    <p style="font-size: 0.9rem;">Teacher generates access codes</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <span class="number-badge">02</span>
+                    <h3>Register</h3>
+                    <p style="font-size: 0.9rem;">Student creates account</p>
+                </div>
+                
+                <div class="timeline-item" style="background: rgba(255,215,0,0.2);">
+                    <span class="number-badge">03</span>
+                    <h3>Mandatory Course</h3>
+                    <p style="font-size: 0.9rem;">Must pass to proceed</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <span class="number-badge">04</span>
+                    <h3>Access Tools</h3>
+                    <p style="font-size: 0.9rem;">Safe AI environment</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <span class="number-badge">05</span>
+                    <h3>Monitor</h3>
+                    <p style="font-size: 0.9rem;">Real-time dashboard</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem;">
+                <h3>What Makes This Different?</h3>
+                <p style="margin-top: 1rem;">Students can't skip the education. The course teaches AI ethics, limitations, and responsible use BEFORE they can access any tools. This ensures every student understands the "why" behind the guardrails.</p>
+            </div>
+        </div>
+        <div class="slide-number">5 / 17</div>
+    </div>
+
+    <!-- SLIDE 6: PRODUCT FEATURES (PART 1) -->
+    <div class="slide slide-6">
+        <div class="slide-content">
+            <h2>Complete Platform Features (Part 1)</h2>
+            <p class="subtitle">Built for teachers and students</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <span class="number-badge">1</span>
+                    <h3>Course-Gated Access</h3>
+                    <p>Students complete mandatory training on AI ethics, limitations, and responsible use before accessing any tools</p>
+                </div>
+                
+                <div class="card">
+                    <span class="number-badge">2</span>
+                    <h3>18 Single-Purpose AI Tools</h3>
+                    <p>Each tool teaches one concept—no Swiss Army knife chaos. Email writer ≠ Essay writer ≠ Math tutor</p>
+                </div>
+                
+                <div class="card">
+                    <span class="number-badge">3</span>
+                    <h3>Teacher Control Dashboard</h3>
+                    <p>Real-time monitoring, usage analytics, intervention capabilities. Teachers stay in control of their classroom</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">6 / 17</div>
+    </div>
+
+   <!-- SLIDE 7: COMPETITIVE LANDSCAPE -->
+    <div class="slide slide-7">
+        <div class="slide-content">
+            <h2>Competitive Positioning</h2>
+            <p class="subtitle">We're in a category of one</p>
+            
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <p style="font-weight: 600;">← Less Teacher Control | More Teacher Control →</p>
+            </div>
+            
+            <div class="matrix">
+                <div class="matrix-quadrant">
+                    <div>
+                        <h3>General AI Tools</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem;">ChatGPT, Claude<br>Perplexity</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #024a18;">Unrestricted, no oversight</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant">
+                    <div>
+                        <h3>Detection Tools</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem;">Turnitin, GPTZero<br>Originality.ai</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #fcfcfc;">Reactive, adversarial</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant">
+                    <div>
+                        <h3>Teacher AI Tools</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem;">MagicSchool AI<br>Brisk Teaching</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #ff0000;">For teachers only</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant highlight">
+                    <div>
+                        <h3>🏆 NextLogicAI</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem; font-weight: 600;">Framework-based<br>Education-first<br>Teacher control</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #1900ff;">Students + Teachers</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 1rem; font-weight: 600; font-size: 0.9rem;">↑ Tool-Based | Framework-Based ↓</p>
+        </div>
+        <div class="slide-number">7 / 16</div>
+    </div>
+
+    <!-- SLIDE 8: COMPETITIVE LANDSCAPE -->
+    <div class="slide slide-8">
+        <div class="slide-content">
+            <h2>Competitive Positioning</h2>
+            <p class="subtitle">We're in a category of one</p>
+            
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <p style="font-weight: 600;">← Less Teacher Control | More Teacher Control →</p>
+            </div>
+            
+            <div class="matrix">
+                <div class="matrix-quadrant">
+                    <div>
+                        <h3>General AI Tools</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem;">ChatGPT, Claude<br>Perplexity</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #ff6b6b;">Unrestricted, no oversight</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant">
+                    <div>
+                        <h3>Detection Tools</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem;">Turnitin, GPTZero<br>Originality.ai</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #ff6b6b;">Reactive, adversarial</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant">
+                    <div>
+                        <h3>Teacher AI Tools</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem;">MagicSchool AI<br>Brisk Teaching</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #ffa500;">For teachers only</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-quadrant highlight">
+                    <div>
+                        <h3>🏆 NextLogicAI</h3>
+                        <p style="font-size: 1rem; margin-top: 0.5rem; font-weight: 600;">Framework-based<br>Education-first<br>Teacher control</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #00ff00;">Students + Teachers</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 1rem; font-weight: 600; font-size: 0.9rem;">↑ Tool-Based | Framework-Based ↓</p>
+        </div>
+        <div class="slide-number">8 / 17</div>
+    </div>
+
+    <!-- SLIDE 9: MARKET OPPORTUNITY -->
+    <div class="slide slide-9">
+        <div class="slide-content">
+            <h2>Market Opportunity</h2>
+            <p class="subtitle">$27.8B North American K-12 AI market growing 15% annually</p>
+            
+            <div class="grid-3">
+                <div class="stat-box">
+                    <span class="stat-number">$27.8B</span>
+                    <p class="stat-label">TAM (Total Addressable)<br>North America K-12 AI</p>
+                </div>
+                
+                <div class="stat-box">
+                    <span class="stat-number">$8.1B</span>
+                    <p class="stat-label">SAM (Serviceable Available)<br>Canada + US Private/Charter</p>
+                </div>
+                
+                <div class="stat-box">
+                    <span class="stat-number">$243M</span>
+                    <p class="stat-label">SOM (Share of Market)<br>3% of SAM by Year 3</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Why Start in Canada?</h3>
+            <div class="grid-2" style="margin-bottom: 2rem;">
+                <div class="card">
+                    <p><strong>Strategic Advantages:</strong></p>
+                    <p style="font-size: 1rem;">• Faster procurement cycles (vs US)<br>• Strong AI literacy push from government<br>• Less saturated EdTech market<br>• Home market advantage (Calgary-based)</p>
+                </div>
+                <div class="card">
+                    <p><strong>Market Size:</strong></p>
+                    <p style="font-size: 1rem;">• 15,500+ K-12 schools in Canada<br>• Provincial funding for EdTech<br>• Early adopter culture<br>• Easier to become category leader</p>
+                </div>
+            </div>
+            
+            <h3>North American Market Drivers</h3>
+            <div class="grid-4">
+                <div class="card">
+                    <p><strong>Student Demand Crisis:</strong></p>
+                    <p style="font-size: 1rem;">43% of teens use ChatGPT monthly. Schools can't ban what students already use—need frameworks to guide responsible adoption</p>
+                </div>
+                <div class="card">
+                    <p><strong>Teacher Burnout:</strong></p>
+                    <p style="font-size: 1rem;">60%+ teachers already using AI for lesson plans and grading. Need vetted tools that save time while maintaining academic integrity</p>
+                </div>
+                <div class="card">
+                    <p><strong>Policy Vacuum:</strong></p>
+                    <p style="font-size: 1rem;">48% of districts lack clear AI policies. Administrators desperate for turnkey solutions that provide structure and accountability</p>
+                </div>
+                <div class="card">
+                    <p><strong>Budget Reallocation:</strong></p>
+                    <p style="font-size: 1rem;">Schools shifting EdTech budgets toward AI tools. Government grants prioritizing AI literacy programs in both countries</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">9 / 17</div>
+    </div>
+
+    <!-- SLIDE 10: REVENUE MODEL -->
+    <div class="slide slide-10">
+        <div class="slide-content">
+            <h2>Revenue Model</h2>
+            <p class="subtitle">Dual-channel B2B2C strategy</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>PRIMARY: Schools (B2B)</h3>
+                    <ul>
+                        <li>$7.88/student/year</li>
+                        <li>Annual contracts</li>
+                        <li>Teacher training included</li>
+                        <li>Free tier → Enterprise conversion</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-weight: 600;">500-student school = $3,940/year</p>
+                </div>
+                
+                <div class="card">
+                    <h3>SECONDARY: Individuals (B2C)</h3>
+                    <ul>
+                        <li>Free: Ad-supported, 3 tools</li>
+                        <li>Premium: $9.99/mo, all tools</li>
+                        <li>Students convince schools</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-weight: 600;">Viral B2C → B2B conversion</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem; text-align: center;">
+                <h3>KEY INSIGHT: The "Dropbox" Strategy</h3>
+                <p style="font-size: 1.25rem; margin-top: 1rem;">Students using Premium at home drive schools to purchase district licenses</p>
+                <p style="margin-top: 1rem;">Future Revenue: Corporate training • White-label • API licensing</p>
+            </div>
+        </div>
+        <div class="slide-number">10 / 17</div>
+    </div>
+
+    <!-- SLIDE 11: FINANCIAL PROJECTIONS -->
+    <div class="slide slide-11">
+        <div class="slide-content">
+            <h2>Financial Projections (Conservative)</h2>
+            <p class="subtitle">Realistic path to profitability</p>
+            
+            <div class="grid-3">
+                <div class="stat-box">
+                    <span class="stat-number">$79K</span>
+                    <p class="stat-label">Year 1 (20 schools)<br>20 × 500 students × $7.88</p>
+                </div>
+                
+                <div class="stat-box">
+                    <span class="stat-number">$197K</span>
+                    <p class="stat-label">Year 2 (50 schools)<br>50 × 500 students × $7.88</p>
+                </div>
+                
+                <div class="stat-box">
+                    <span class="stat-number">$788K</span>
+                    <p class="stat-label">Year 3 (200 schools)<br>200 × 500 students × $7.88</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Unit Economics Breakdown</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>LTV:CAC = 6.3x</h3>
+                    <p style="font-size: 0.95rem;"><strong>LTV:</strong> $3,940/school × 3yr retention = $11,820</p>
+                    <p style="font-size: 0.95rem;"><strong>CAC:</strong> $1,875/school (sales + marketing)</p>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem;">$11,820 ÷ $1,875 = 6.3x (Healthy: >3x)</p>
+                </div>
+                
+                <div class="card">
+                    <h3>85% Gross Margin</h3>
+                    <p style="font-size: 0.95rem;"><strong>Revenue:</strong> $7.88/student/yr</p>
+                    <p style="font-size: 0.95rem;"><strong>COGS:</strong> $1.18 (API + hosting)</p>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem;">($7.88 - $1.18) ÷ $7.88 = 85%</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Break-Even: Month 18</h3>
+                    <p style="font-size: 0.95rem;"><strong>Fixed:</strong> $10K/mo (lean ops)</p>
+                    <p style="font-size: 0.95rem;"><strong>Need:</strong> ~30 schools at 85% margin</p>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem;">Conservative: Break-even Month 18</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">11 / 17</div>
+    </div>
+
+    <!-- SLIDE 12: TRACTION & VALIDATION -->
+    <div class="slide slide-12">
+        <div class="slide-content">
+            <h2>Current Traction & Next Steps</h2>
+            <p class="subtitle">Building validation momentum</p>
+            
+            <div class="grid-4">
+                <div class="card">
+                    <h3>✅ PRODUCT</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Functional MVP</li>
+                        <li>18 AI tools built</li>
+                        <li>Teacher dashboard</li>
+                        <li>Assignment system</li>
+                        <li>Auto-grading ready</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>🎯 PRE-LAUNCH</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Building waitlist</li>
+                        <li>Teacher interviews (ongoing)</li>
+                        <li>Seeking pilot partners</li>
+                        <li>Target: 5-10 beta schools</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>📅 TIMELINE</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Q2 2025: Beta launch</li>
+                        <li>Q3 2025: Iterate on feedback</li>
+                        <li>Q4 2025: Public launch</li>
+                        <li>Q1 2026: Scale to 20 schools</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>💬 VALIDATION</h3>
+                    <p style="font-style: italic; font-size: 1rem;">"This is exactly what we need to teach AI responsibly while maintaining academic standards"</p>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">— K-12 Tech Lead, Seattle</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem; background: rgba(255,215,0,0.15); border-color: #ffd700;">
+                <h3 style="text-align: center;">🎯 Immediate Focus: Securing 5 Pilot Schools</h3>
+                <p style="text-align: center; margin-top: 1rem;">Free pilot program in exchange for detailed feedback and testimonials</p>
+            </div>
+        </div>
+        <div class="slide-number">12 / 17</div>
+    </div>
+
+    <!-- SLIDE 13: GO-TO-MARKET STRATEGY -->
+    <div class="slide slide-13">
+        <div class="slide-content">
+            <h2>Go-To-Market Strategy</h2>
+            <p class="subtitle">Canada-first approach, then US expansion</p>
+            
+            <div class="grid-4">
+                <div class="card">
+                    <h3>Phase 1: Authority</h3>
+                    <p style="font-size: 0.9rem;">Months 1-3 (Canada)</p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">• White papers on AI in education<br>• Teacher webinars<br>• Alberta & BC focus<br>• LinkedIn content</p>
+                    <p style="color: #ffd700; margin-top: 1rem;">→ 500+ Canadian Leads</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 2: Beta</h3>
+                    <p style="font-size: 0.9rem;">Months 4-6 (Canada)</p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">• 5 pilot schools (Calgary/Vancouver)<br>• Rapid iteration<br>• Case studies<br>• Teacher testimonials</p>
+                    <p style="color: #ffd700; margin-top: 1rem;">→ 90% Retention</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 3: Canadian Scale</h3>
+                    <p style="font-size: 0.9rem;">Months 7-12</p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">• Expand to Ontario & Quebec<br>• Provincial partnerships<br>• Conference presence<br>• 20 Canadian schools</p>
+                    <p style="color: #ffd700; margin-top: 1rem;">→ Category Leader</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 4: US Expansion</h3>
+                    <p style="font-size: 0.9rem;">Year 2+</p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">• Border states first<br>• US sales team<br>• LMS partnerships<br>• Scale to 200 schools</p>
+                    <p style="color: #ffd700; margin-top: 1rem;">→ North American Leader</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Target Buyer Profile</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Decision Maker</h3>
+                    <p>District Tech Coordinator or Principal (faster in Canada)</p>
+                </div>
+                <div class="card">
+                    <h3>Champions</h3>
+                    <p>Individual teachers who pilot and advocate</p>
+                </div>
+                <div class="card">
+                    <h3>Sales Cycle</h3>
+                    <p>3-6 months Canada / 6-9 months US</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">13 / 17</div>
+    </div>
+
+    <!-- SLIDE 14: TEAM -->
+    <div class="slide slide-14">
+        <div class="slide-content">
+            <h2>Team & Advisors</h2>
+            <p class="subtitle">Building expertise in EdTech and AI</p>
+            
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>FOUNDER</h3>
+                <div style="margin-top: 1rem;">
+                    <h3 style="font-size: 1.5rem;">Sarah - Founder & CEO</h3>
+                    <ul>
+                        <li>EdTech & Curriculum Development Expert</li>
+                        <li>AI Implementation Specialist</li>
+                        <li>Former K-12 Administrator (5+ years)</li>
+                        <li>Part of NextLogic AI family (established business)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Target Hires (Post-Funding, Months 6-12)</h3>
+            <div class="grid-4">
+                <div class="card">
+                    <h3>Tech Lead</h3>
+                    <p style="font-size: 0.9rem;">$80K<br>Platform development & security</p>
+                </div>
+                <div class="card">
+                    <h3>Sales Lead</h3>
+                    <p style="font-size: 0.9rem;">$60K + commission<br>District partnerships & outreach</p>
+                </div>
+                <div class="card">
+                    <h3>Curriculum Specialist</h3>
+                    <p style="font-size: 0.9rem;">$65K<br>Content & pedagogy development</p>
+                </div>
+                <div class="card">
+                    <h3>Marketing Lead</h3>
+                    <p style="font-size: 0.9rem;">$55K<br>Teacher community & content</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Seeking Advisory Board</h3>
+            <div class="card">
+                <p>Target: 3 K-12 administrators, 2 EdTech founders, 1 AI ethics expert</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Compensation: Equity (0.25-0.5% each)</p>
+            </div>
+        </div>
+        <div class="slide-number">14 / 17</div>
+    </div>
+
+    <!-- SLIDE 15: RISKS & MITIGATION -->
+    <div class="slide slide-15">
+        <div class="slide-content">
+            <h2>Risks & Mitigation Strategies</h2>
+            <p class="subtitle">We've thought through the challenges</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>RISK: Long K-12 Sales Cycles</h3>
+                    <p style="margin-top: 1rem;"><strong>Reality:</strong> 6-12 month procurement</p>
+                    <p style="margin-top: 1rem;"><strong>Mitigation:</strong></p>
+                    <ul style="font-size: 1rem;">
+                        <li>Free pilot program (immediate adoption)</li>
+                        <li>Teacher-driven bottom-up sales</li>
+                        <li>Target charter schools (faster decisions)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>RISK: Data Privacy (FERPA)</h3>
+                    <p style="margin-top: 1rem;"><strong>Reality:</strong> Strict student data laws</p>
+                    <p style="margin-top: 1rem;"><strong>Mitigation:</strong></p>
+                    <ul style="font-size: 1rem;">
+                        <li>No PII collected from students</li>
+                        <li>FERPA-compliant architecture from Day 1</li>
+                        <li>Third-party security audit (Year 1)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>RISK: Competition</h3>
+                    <p style="margin-top: 1rem;"><strong>Reality:</strong> Big players could copy</p>
+                    <p style="margin-top: 1rem;"><strong>Mitigation:</strong></p>
+                    <ul style="font-size: 1rem;">
+                        <li>Framework IP is defensible</li>
+                        <li>First-mover in education-first approach</li>
+                        <li>Network effects (teacher community)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>RISK: Teacher Adoption</h3>
+                    <p style="margin-top: 1rem;"><strong>Reality:</strong> Teachers resist new tools</p>
+                    <p style="margin-top: 1rem;"><strong>Mitigation:</strong></p>
+                    <ul style="font-size: 1rem;">
+                        <li>Reduces workload (auto-grading)</li>
+                        <li>Free training and onboarding</li>
+                        <li>Teacher-designed interface</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">15 / 17</div>
+    </div>
+
+    <!-- SLIDE 16: THE ASK -->
+    <div class="slide slide-16">
+        <div class="slide-content">
+            <h2>The Ask: $500K Seed Round</h2>
+            <p class="subtitle">18 months to product-market fit and break-even</p>
+            
+            <div class="grid-2" style="margin-top: 3rem;">
+                <div>
+                    <h3>Capital Allocation</h3>
+                    <div class="card" style="margin-top: 1rem;">
+                        <ul>
+                            <li>40% - Sales & Marketing ($200K)</li>
+                            <li>30% - Product Development ($150K)</li>
+                            <li>20% - Operations & Infrastructure ($100K)</li>
+                            <li>10% - Runway Buffer ($50K)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>18-Month Milestones</h3>
+                    <div class="card" style="margin-top: 1rem;">
+                        <p><strong>Month 6:</strong> 5 pilot schools, product iteration</p>
+                        <p style="margin-top: 1rem;"><strong>Month 12:</strong> 15 paying schools, $59K ARR</p>
+                        <p style="margin-top: 1rem;"><strong>Month 18:</strong> 30 schools, $118K ARR, approaching break-even</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem; text-align: center;">
+                <h3>Use of Funds: First 6 Months</h3>
+                <p style="margin-top: 1rem;">$100K - Secure 5 pilot schools (sales + onboarding)</p>
+                <p>$75K - Product refinement based on beta feedback</p>
+                <p>$50K - Hire tech lead (Month 4)</p>
+                <p>$25K - Operations & legal (FERPA compliance)</p>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem; background: rgba(255,215,0,0.15); border-color: #ffd700;">
+                <p style="text-align: center; font-size: 1.1rem; font-weight: 600;">This funding gets us to validated product-market fit, positioning for $2M Series A at 100+ schools</p>
+            </div>
+        </div>
+        <div class="slide-number">16 / 17</div>
+    </div>
+
+    <!-- SLIDE 17: CLOSING -->
+    <div class="slide slide-17">
+        <div class="slide-content">
+            <h2 style="text-align: center;">Join Us in Shaping Responsible AI Education</h2>
+            
+            <div class="grid-3" style="margin-top: 3rem;">
+                <div class="card">
+                    <h3>18-Month Goal</h3>
+                    <p>30 schools<br>15,000 students<br>Product-market fit validated</p>
+                </div>
+                
+                <div class="card">
+                    <h3>3-Year Vision</h3>
+                    <p>200 schools<br>100,000 students<br>Category leader</p>
+                </div>
+                
+                <div class="card">
+                    <h3>5-Year Impact</h3>
+                    <p>5,000+ schools<br>2.5M students<br>Responsible AI citizens</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 3rem; text-align: center;">
+                <h3>Why This Matters</h3>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">
+                    AI isn't going away. The question isn't IF students use AI—it's HOW they learn to use it responsibly. We're building the framework that transforms AI from a threat into a teaching tool.
+                </p>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem; text-align: center;">
+                <h3>Let's Talk</h3>
+                <p style="font-size: 1.125rem; margin-top: 1rem;">
+                    <strong>Sarah</strong><br>
+                    Founder & CEO<br>
+                    sarah@nextlogicai.com<br>
+                    Calgary, AB, Canada<br><br>
+                    <strong>Next Steps:</strong><br>
+                    30-minute product demo • Pilot school discussion • Investment conversation
+                </p>
+            </div>
+        </div>
+        <div class="slide-number">17 / 17</div>
+    </div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        if (index < 0) index = 0;
+        if (index >= totalSlides) index = totalSlides - 1;
+
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+
+        currentSlide = index;
+        document.getElementById('slideCounter').textContent =
+            `${currentSlide + 1} / ${totalSlides}`;
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            e.preventDefault();
+            nextSlide();
+        }
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevSlide();
+        }
+    });
+
+    // Initialize
+    showSlide(0);
+</script>
+</body>
+</html>
