@@ -234,30 +234,18 @@ nav a:hover {
 
 /* Hero */
 .hero {
-  background: linear-gradient(-45deg, #4a5568, #2d3748, #1a365d, #2c5282);
+  background: var(--primary-gradient); 
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
-  color: white;
-  position: relative;
-  overflow: hidden;
 }
 
 .hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(237, 100, 166, 0.3) 0%, transparent 50%);
-  pointer-events: none;
+              radial-gradient(circle at 80% 80%, rgba(102, 126, 234, 0.3) 0%, transparent 50%);
 }
 
 .hero .container {
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(-45deg, #4a5568, #2d3748, #1a365d, #2c5282);
+  background: var(--primary-gradient);
 }
 
 .hero h1 {
